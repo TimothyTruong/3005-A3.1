@@ -3,8 +3,9 @@ import psycopg2
 #username - postgres
 #password - admin
 
-def initDb():
 
+#Connect to database
+def initDb():
     try:
         conn = psycopg2.connect(
             dbname="Assignment 3",
@@ -19,6 +20,7 @@ def initDb():
     except:
         print("I am unable to connect to the database")
 
+#Select all students and print them by row
 def getStudents():
     conn = initDb()
     cursor = conn.cursor()
@@ -27,6 +29,8 @@ def getStudents():
     for row in rows:
         print(row)
     
+
+#Adds new student
 def addStudent(firstName, lastName, email, enrollmentDate):
     conn = initDb()
     cursor = conn.cursor()
@@ -34,6 +38,7 @@ def addStudent(firstName, lastName, email, enrollmentDate):
     conn.commit()
     cursor.close()
 
+#Updates student info
 def updateStudent(studentId, newEmail):
     conn = initDb()
     cursor = conn.cursor()
@@ -41,6 +46,7 @@ def updateStudent(studentId, newEmail):
     conn.commit()
     cursor.close()
 
+#Delete student by ID
 def deleteStudent(studentId):
     conn = initDb()
     cursor = conn.cursor()
@@ -50,6 +56,7 @@ def deleteStudent(studentId):
 
 initDb()
 
+#Main loop
 def main():
     while(True):
         userInput = input("Enter 1 to get all students, 2 to add a student, 3 to update a student, 4 to delete a student, and 5 to exit: ")
